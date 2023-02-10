@@ -1,0 +1,134 @@
+
+<form [formGroup]="usuarioForm" autocomplete="off">
+    <h2>{{accion}} Usuario</h2>
+    <mat-grid-list cols="2" rowHeight="465px">
+        <mat-grid-tile>
+          <mat-card class="example-card">
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Nombre de Usuario</mat-label>
+                  <input matInput formControlName="username" 
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.username.errors}" placeholder="Insertar nombre de usuario">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.username.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.username.errors.required">
+                    El campo usuario es requerido
+                </div>
+            </div>
+              <mat-form-field appearance="standard">
+                  <mat-label>Nombres</mat-label>
+                  <input matInput formControlName="nombres"
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.nombres.errors}" placeholder="Insertar nombre">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.nombres.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.nombres.errors.required">
+                    El campo nombre es requerido
+                </div>
+            </div>
+              <mat-form-field appearance="standard">
+                  <mat-label>Apellidos</mat-label>
+                  <input matInput formControlName="apellidos"
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.apellidos.errors}" placeholder="Insertar apellidos">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.apellidos.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.apellidos.errors.required">
+                    El campo apellido es requerido
+                </div>
+            </div>
+              <mat-form-field appearance="standard">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password"
+                [ngClass]="{'is-invalid':submitted && usuarioForm.controls.password.errors}" [type]="hide ? 'password' : 'text'">
+                
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.password.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.password.errors.required">
+                    El campo contraseña es requerido
+                </div>
+            </div>
+              <mat-form-field appearance="standard">
+                  <mat-label>Correo</mat-label>
+                  <input type="email" matInput formControlName="email"
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.email.errors}" placeholder="Insertar correo">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.email.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.email.errors.required">
+                    El campo correo es requerido
+                </div>
+                <div *ngIf="submitted && usuarioForm.controls.email.errors.email">
+                      Correo no valido
+                </div>
+            </div>
+              
+          </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card class="example-card">
+              <mat-form-field appearance="standard">
+                  <mat-label>Telefono</mat-label>
+                  <input matInput formControlName="telefono"
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.telefono.errors}" placeholder="Insertar telefono">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.telefono.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.telefono.errors.required">
+                    El campo telefono es requerido
+                </div>
+                <div *ngIf="submitted && usuarioForm.controls.telefono.errors.minlength">
+                    Se debe ingresar como maximo 7 caracteres en el campo telefono
+                </div>
+            </div>
+              <mat-form-field appearance="standard">
+                  <mat-label>Celular</mat-label>
+                  <input matInput formControlName="celular"
+                  [ngClass]="{'is-invalid':submitted && usuarioForm.controls.celular.errors}" placeholder="Insertar celular">
+                  
+              </mat-form-field>
+              <div *ngIf="submitted && usuarioForm.controls.celular.errors" class="text-danger font-small">
+                <div *ngIf="submitted && usuarioForm.controls.celular.errors.required">
+                    El campo celular es requerido
+                </div>
+                <div *ngIf="submitted && usuarioForm.controls.celular.errors.minlength">
+                  Se debe ingresar como maximo 9 caracteres en el campo celular
+              </div>
+            </div>
+              <mat-form-field appearance="standard">
+                <mat-label>Seleccione el Area</mat-label>
+                <mat-select formControlName="area" [compareWith]="compararArea">
+                  <mat-option [value]="undefined" >--Seleccione area--</mat-option>
+                  <mat-option *ngFor="let area of areas"  [value]="area">{{area.nombre}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="standard">
+                <mat-label>Seleccionar Rol</mat-label>
+                <mat-select formControlName="usuarioRoles" [compareWith]="compararRol" multiple>
+                  <mat-option [value]="undefined" >--Seleccione rol--</mat-option>
+                  <mat-option *ngFor="let rol of roles" [value]="rol">{{rol.nombreRole}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Seleccionar Servicio</mat-label>
+                <mat-select formControlName="servicio" [compareWith]="compararServicios" multiple>
+                  <mat-option [value]="undefined">--Seleccione servicio--</mat-option>
+                  <mat-option *ngFor="let servicio of servicios" [value]="servicio">{{servicio.nombre}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="postUsuario()"  >{{accion}}</button>
+    </div>
+</form>

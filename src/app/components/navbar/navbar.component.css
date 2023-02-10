@@ -1,0 +1,36 @@
+mat-sidenav-container{
+ height: calc(205vh - 114.7vh);
+}
+ mat-sidenav{
+    width: 220px;
+    background-color: #eee;
+ }
+
+ .mat-form-field + .mat-form-field {
+   margin-left: 8px;
+ }
+
+ mat-expansion-panel{
+   margin: 5px 5px 5px 5px;
+ }
+
+ .example-spacer {
+  flex: 10 10 auto;
+}
+
+a{
+  text-decoration: none;
+  padding-right: 85px;
+}
+li{
+  list-style: none;
+  padding-top: 10px;
+}
+
+.user{
+  margin-right: 25px;
+}
+
+.logout{
+  margin-right: 40px;
+}

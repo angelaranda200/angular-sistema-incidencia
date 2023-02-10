@@ -1,0 +1,87 @@
+<form [formGroup]="solicitudForm" enctype="multipart/form-data" class="example-form">
+
+    <div class="container" style="margin-top: 25px;">
+      <div class="text-center">
+        <mat-card>
+          <mat-card-title class="m-3">Ticket N°{{solicitudForm.controls['idTicket'].value}}</mat-card-title>
+          <div class="row m-2">
+            <div class="col">
+              <mat-card-title>Usuario</mat-card-title>
+              <mat-card-subtitle >{{user.nombres | titlecase}} {{user.apellidos | titlecase}}</mat-card-subtitle>
+            </div> 
+            <div class="col">
+              <mat-card-title>Estado Ticket</mat-card-title>
+              <mat-card-subtitle >{{solicitudForm.controls['estado_ticket'].value.nombre}} </mat-card-subtitle>
+              <!-- <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Elegir Estado Ticket</mat-label>
+                <mat-select formControlName="estado_ticket" [compareWith]="compararEstado" >
+                  
+                  <mat-option *ngFor="let et of estadoTickets" [value]="et">{{et.nombre}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field> -->
+            </div> 
+          </div>
+          <div class="row m-3">
+            <div class="col">
+              <mat-card-title>Prioridad</mat-card-title>
+              <mat-card-subtitle >{{solicitudForm.controls['prioridad'].value.nombre}} </mat-card-subtitle>
+            </div>
+            <div class="col">
+              <mat-card-title>Empresa</mat-card-title>
+              <mat-card-subtitle >{{solicitudForm.controls['tienda'].value.nombre_tienda}} </mat-card-subtitle>
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col">
+              <mat-card-title>Tipo de Incidencia</mat-card-title>
+              <mat-card-subtitle >{{solicitudForm.controls['incidencia'].value.nombre}} </mat-card-subtitle>
+            </div>
+            <div class="col">
+              <mat-card-title>Area</mat-card-title>
+              <mat-card-subtitle >{{solicitudForm.controls['area'].value.nombre}} </mat-card-subtitle>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="text-center m-3">
+        <mat-card >
+          <mat-card-title>Hilo Ticket</mat-card-title>
+          <div *ngFor="let variable of hilosTicket; let i=index">
+            <div class="card mt-3" *ngIf="this.hiloTicketArr.length == this.activatedRoute.snapshot.data['ticket'].hilos_ticket.length ">
+              <div class="card-header text-start">
+                  <p class="fs-6"><span class="fw-bolder">Usuario:</span> {{variable.usuario.nombres | titlecase}} {{variable.usuario.apellidos | titlecase}}</p>
+              </div>
+              <div class="card-body text-start">
+                <div [innerHTML]="variable.contenido">
+
+              </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="text-center m-3">
+        <mat-card>
+          <mat-card-title>Archivos Adjuntados</mat-card-title>
+          <div class="mt-5" *ngIf="solicitudForm.controls['adjuntotickets'].value!=0 else elseat">
+            <div class="row">
+              <mat-grid-list cols="4" rowHeight="1:1">
+                <mat-grid-tile *ngFor="let at of solicitudForm.controls['adjuntotickets'].value; let i=index">
+                  <img [src]="at.url" width="200px" height="200px">
+                  
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+          </div>
+          <ng-template #elseat>
+            <div class="text-center">
+              No hay archivos adjuntos
+            </div>
+          </ng-template>
+
+        </mat-card>
+        
+      </div>
+    </div>     
+  </form>

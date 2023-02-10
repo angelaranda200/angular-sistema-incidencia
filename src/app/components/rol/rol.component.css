@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .container{
+      max-width: 1200px;
+      margin: 20px auto;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  

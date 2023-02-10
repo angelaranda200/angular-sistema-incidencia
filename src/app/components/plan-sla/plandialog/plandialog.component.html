@@ -1,0 +1,36 @@
+<form [formGroup]="planForm" autocomplete="off">
+    <h2>{{accion}} Plan Sla</h2>
+    <mat-grid-list cols="1" rowHeight="380px">
+        <mat-grid-tile>
+          <mat-card class="example-card">
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Nombre Plan Sla</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Insertar plan sla">
+              </mat-form-field>
+              <div *ngIf="submitted && planForm.controls.nombre.errors" class="text-danger font-small">
+                <div *ngIf="submitted && planForm.controls.nombre.errors.required">
+                    El campo nombre es requerido
+                </div>
+            </div>
+
+              <mat-form-field appearance="standard">
+                <mat-label>Periodo de gracia</mat-label>
+                <input matInput formControlName="periodo_de_gracia" placeholder="Insertar nombre de estado">
+            </mat-form-field>
+            <div *ngIf="submitted && planForm.controls.periodo_de_gracia.errors" class="text-danger font-small">
+              <div *ngIf="submitted && planForm.controls.periodo_de_gracia.errors.required">
+                  El campo nombre es requerido
+              </div>
+          </div>
+            
+             
+          </mat-card>
+        </mat-grid-tile>
+        
+      </mat-grid-list>
+      <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="postPlan()">{{accion}}</button>
+    </div>
+</form>

@@ -1,0 +1,43 @@
+
+<h2 class="text-center">Bienvenido {{user.nombres | titlecase}} {{user.apellidos | titlecase}}</h2>
+
+
+
+<div class="container text-center" *ngIf="loginService.getUserRole()== 'ADMIN'">
+    <h1 class="text-start">Dashboard</h1>
+    <div class="row">
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h1 class="card-title">Tickets en Total</h1>
+                  <h2 class="card-subtitle mb-2 text-muted">{{tickets.length}}</h2>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h1 class="card-title">Tickets Abierto</h1>
+                  <h2 class="card-subtitle mb-2 text-muted">{{ticketAbierto.length}}</h2>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h1 class="card-title">Tickets Cerrados</h1>
+                  <h2 class="card-subtitle mb-2 text-muted">{{ticketCerrado.length}}</h2>
+                  
+                </div>
+              </div>
+        </div>
+      </div>
+
+</div>
+
+<p class="container text-center" *ngIf="loginService.getUserRole()== 'NORMAL'">
+    Hola usuario sus actividades
+</p>
+<!-- <app-solicitud></app-solicitud> -->

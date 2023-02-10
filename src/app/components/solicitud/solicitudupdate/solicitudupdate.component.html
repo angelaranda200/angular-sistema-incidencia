@@ -1,0 +1,237 @@
+<div *ngIf="loginService.getUserRole()== 'ADMIN' else formUpdate">
+  
+  <form [formGroup]="solicitudForm" enctype="multipart/form-data" class="example-form">
+  
+      <div class="container" style="margin-top: 25px;">
+        <div class="text-center">
+          <mat-card>
+            <mat-card-title class="m-3">Ticket N°{{solicitudForm.controls['idTicket'].value}}</mat-card-title>
+            <div class="row m-2">
+              <div class="col">
+                <mat-card-title>Usuario</mat-card-title>
+                <mat-card-subtitle >{{user.nombres | titlecase}} {{user.apellidos | titlecase}}</mat-card-subtitle>
+              </div> 
+              <div class="col">
+                <mat-form-field appearance="fill" class="example-full-width">
+                  <mat-label>Elegir Estado Ticket</mat-label>
+                  <mat-select formControlName="estado_ticket" [compareWith]="compararEstado" >
+                    
+                    <mat-option *ngFor="let et of estadoTickets" [value]="et">{{et.nombre}}</mat-option>
+                    
+                  </mat-select>
+                </mat-form-field>
+              </div> 
+            </div>
+            <div class="row m-3">
+              <div class="col">
+                <mat-card-title>Prioridad</mat-card-title>
+                <mat-card-subtitle >{{solicitudForm.controls['prioridad'].value.nombre}} </mat-card-subtitle>
+              </div>
+              <div class="col">
+                <mat-card-title>Empresa</mat-card-title>
+                <mat-card-subtitle >{{solicitudForm.controls['tienda'].value.nombre_tienda}} </mat-card-subtitle>
+              </div>
+            </div>
+            <div class="row m-3">
+              <div class="col">
+                <mat-card-title>Tipo de Incidencia</mat-card-title>
+                <mat-card-subtitle >{{solicitudForm.controls['incidencia'].value.nombre}} </mat-card-subtitle>
+              </div>
+              <div class="col">
+                <mat-card-title>Area</mat-card-title>
+                <mat-card-subtitle >{{solicitudForm.controls['area'].value.nombre}} </mat-card-subtitle>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+        <div class="text-center m-3">
+          <mat-card >
+            <mat-card-title>Hilo Ticket</mat-card-title>
+            <div *ngFor="let variable of hilosTicket; let i=index">
+              <div class="card mt-3" *ngIf="this.hiloTicketArr.length == this.activatedRoute.snapshot.data['ticket'].hilos_ticket.length ">
+                <div class="card-header text-start">
+                    <p class="fs-6"><span class="fw-bolder">Usuario:</span> {{variable.usuario.nombres | titlecase}} {{variable.usuario.apellidos | titlecase}}</p>
+                </div>
+                <div class="card-body text-start">
+                  <div [innerHTML]="variable.contenido">
+  
+                </div>
+                </div>
+              </div>
+            </div>
+            
+            <div  formArrayName="hilos_ticket">
+              <div class="row" 
+                *ngFor="let ht of hiloTicketArr.controls; let i=index" [formGroupName]="i">
+                <div class="col-md-12" 
+                *ngIf="this.hiloTicketArr.length != this.activatedRoute.snapshot.data['ticket'].hilos_ticket.length ">
+                  
+                  <quill-editor 
+                  *ngIf="this.hiloTicketArr.value[0].contenido == this.activatedRoute.snapshot.data['ticket'].hilos_ticket[0].contenido" 
+                  class="example-full-width" formControlName="contenido" [modules]="editorModules" >
+            
+                  </quill-editor>
+                </div>
+              
+    
+               
+              </div>
+              
+            </div>
+            
+            <button style="margin-top: 90px;" mat-raised-button color="primary" (click)="addNewHiloTicket()">Agregar Hilo Ticket</button>
+  
+          </mat-card>
+        </div>
+        <div class="text-center m-3">
+          <mat-card>
+            <mat-card-title>Archivos Adjuntados</mat-card-title>
+            <div class="mt-5" *ngIf="solicitudForm.controls['adjuntotickets'].value!=0 else elseat">
+              <div class="row">
+                <mat-grid-list cols="4" rowHeight="1:1">
+                  <mat-grid-tile *ngFor="let at of solicitudForm.controls['adjuntotickets'].value; let i=index">
+                    
+                      
+                      <a (click)="downloadFile(at)">
+                      <img [src]="at.url" width="200px" height="200px">
+                    
+                    </a>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </div>
+            </div>
+            <ng-template #elseat>
+              <div class="text-center">
+                No hay archivos adjuntos
+              </div>
+            </ng-template>
+  
+          </mat-card>
+          <button  (click)="putTicket()" mat-raised-button color="primary">Actualizar Solicitud</button>
+        </div>
+      </div>     
+    </form>
+</div>
+
+
+<ng-template #formUpdate>
+  <form [formGroup]="solicitudForm" enctype="multipart/form-data" class="example-form">
+    <div class="container" style="margin-top: 25px;">
+      <div class="text-center">
+        <div class="row m-2">
+          <div class="col text-center">
+           
+            <mat-card-title>Usuario</mat-card-title><br>
+            <mat-card-subtitle >{{user.nombres | titlecase}} {{user.apellidos | titlecase}}</mat-card-subtitle>
+          </div>
+          <div class="col text-center">
+            
+            <!-- <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Elegir Estado Ticket</mat-label>
+              <mat-select formControlName="estado_ticket" [compareWith]="compararEstado" [(ngModel)]="abierto" >
+                
+                <mat-option *ngFor="let et of estadoTickets" [value]="et">{{et.nombre}}</mat-option>
+                
+              </mat-select>
+            </mat-form-field> -->
+            <mat-card-title>Estado Ticket</mat-card-title><br>
+            <mat-card-subtitle >{{solicitudForm.controls['estado_ticket'].value.nombre}} </mat-card-subtitle>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Elegir Prioridad</mat-label>
+              <mat-select formControlName="prioridad" [compareWith]="compararPrioridad">
+                
+                <mat-option *ngFor="let p of prioridades" [value]="p" >{{p.nombre}}</mat-option>
+               
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Elegir Empresa</mat-label>
+              <mat-select formControlName="tienda" [compareWith]="compararEmpresa">
+                
+                <mat-option *ngFor="let t of tiendas" [value]="t" >{{t.nombre_tienda}}</mat-option>
+               
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Elegir Incidencia</mat-label>
+              <mat-select formControlName="incidencia" [compareWith]="compararIncidencia">
+               
+                <mat-option *ngFor="let i of incidencias" [value]="i" >{{i.nombre}}</mat-option>
+               
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" class="example-full-width">
+              <mat-label>Elegir Area</mat-label>
+              <mat-select formControlName="area" [compareWith]="compararArea">
+              
+                <mat-option *ngFor="let a of areas" [value]="a" >{{a.nombre}}</mat-option>
+               
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> 
+        <h3>Hilo Ticket</h3>
+        <div formArrayName="hilos_ticket" *ngFor="let ht of hiloTicketArr.controls; let i=index">
+  
+          <div class="row ht" [formGroupName]="i">
+            <div class="col-md-12">
+              
+              <quill-editor class="example-full-width" formControlName="contenido" [modules]="editorModules" >
+        
+              </quill-editor>
+            </div>
+            
+          </div>
+        </div>
+        
+        <button style="margin-top: 90px;" mat-raised-button color="primary" (click)="addNewHiloTicket()">Agregar Hilo Ticket</button>
+        <div class="row mt-6"> 
+          <div class="col">
+            <div>
+  
+              <div class="dropzone container" 
+                appDrag 
+                (files) = "fileDropped($event)">
+                <div class="text-wrapper">
+                  <div class="centered">
+                    Arrastre sus archivos <a (click)="selectFile.click()" class="browse-button">aqui</a>
+                  </div>
+                </div>
+              </div>
+              <input type="file" style="display: none;" #selectFile value="select" (change)="seleccionarFoto($event)"   >
+            </div>
+          </div>
+          <div class="mt-5" *ngIf="solicitudForm.controls['adjuntotickets'].value!=0">
+            <div class="row">
+              <mat-grid-list cols="4" rowHeight="1:1">
+                <mat-grid-tile *ngFor="let file of solicitudForm.controls['adjuntotickets'].value; let i=index">
+                  <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                  <a (click)="downloadFile(file)">
+                    <img [src]="file.url" width="100px" height="100px">
+
+                  </a>  
+                    
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+          </div>
+        </div>
+        <button (click)="putTicket()" mat-raised-button color="primary">Enviar Solicitud</button>
+       </div>
+      </div>
+</form> 
+</ng-template>
+

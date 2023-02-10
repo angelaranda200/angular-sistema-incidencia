@@ -1,0 +1,33 @@
+<form [formGroup]="incidenciaForm" autocomplete="off">
+    <h2>{{accion}} Incidencia</h2>
+    <mat-grid-list cols="1" rowHeight="380px">
+        <mat-grid-tile>
+          <mat-card class="example-card">
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Nombre Incidencia</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Insertar incidencia">
+              </mat-form-field>
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Descripcion</mat-label>
+                  <textarea matInput formControlName="descripcion"  placeholder="Escriba su descripcion..."></textarea>
+              </mat-form-field>
+              
+              <mat-form-field appearance="fill">
+                <mat-label>Seleccionar Plan Sla</mat-label>
+                <mat-select formControlName="plan_sla" [compareWith]="compararArea">
+                  <mat-option *ngFor="let ps of planSla" [value]="ps">{{ps.nombre}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+              
+          </mat-card>
+        </mat-grid-tile>
+        
+      </mat-grid-list>
+      <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="postIncidencia()"  mat-dialog-close>{{accion}}</button>
+    </div>
+</form>

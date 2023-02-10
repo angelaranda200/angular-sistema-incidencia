@@ -1,0 +1,61 @@
+.example-full-width {
+    width: 100%;
+  }
+
+  .dropzone{
+    height: 150px;
+    min-width: 100px;
+    display: table;
+    background-color: #eee;
+    width: 1000px;
+    border: dashed 1px #aaa;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.mt-6{
+ margin-top: 70px;
+}
+
+.text-wrapper{
+    display: table-cell;
+    vertical-align: middle;
+}
+.centered{
+    text-align: center;
+}
+
+.ht{
+  margin-top: 75px;
+}
+
+.browse-button{
+  color: blue;
+  cursor: pointer;
+}
+
+mat-grid-tile{
+  border: 1px solid #eee;
+}
+
+.btn-remove-image{
+  position: absolute;
+  cursor: pointer;
+  top: 3px;
+  right: 2px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: auto;
+  text-align: center;
+}
+
+.example-card {
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  
+}

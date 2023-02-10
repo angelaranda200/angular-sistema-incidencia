@@ -1,0 +1,26 @@
+<form [formGroup]="prioridadForm" autocomplete="off">
+    <h2>{{accion}} Prioridad</h2>
+    <mat-grid-list cols="1" rowHeight="380px">
+        <mat-grid-tile>
+          <mat-card class="example-card">
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Nombre Prioridad</mat-label>
+                  <input matInput formControlName="nombre" placeholder="Insertar prioridad">
+              </mat-form-field>
+              
+              <mat-form-field appearance="standard">
+                  <mat-label>Descripcion</mat-label>
+                  <textarea matInput formControlName="descripcion"  placeholder="Escriba su descripcion..."></textarea>
+              </mat-form-field>
+              
+              
+          </mat-card>
+        </mat-grid-tile>
+        
+      </mat-grid-list>
+      <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+        <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="postPrioridad()"  mat-dialog-close>{{accion}}</button>
+    </div>
+</form>

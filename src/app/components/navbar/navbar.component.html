@@ -1,0 +1,154 @@
+<mat-toolbar color="primary">
+    <button (click)="opened= !opened" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span> Sistema de Incidencia</span>
+    <span class="example-spacer"></span>
+    <a class="user" mat-icon-button *ngIf="isLoggedIn && user">{{login.getUser().nombres | titlecase }} </a>
+    <a class="logout" routerLink="/login" (click)="logout()" mat-icon-button *ngIf="isLoggedIn">
+      <mat-icon aria-hidden="false">logout</mat-icon>
+      Cerrar Sesion</a>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="side">
+
+    <mat-accordion>
+      <ul>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">home</mat-icon>
+             <a routerLink="/dashboard">Inicio</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">description</mat-icon>
+            <a routerLink="/dashboard/solicitud">Solicitudes</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">manage_accounts</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/area">Area</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">stairs</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/estado-ticket">Estado Ticket</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">gpp_maybe</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/incidencia">Incidencia</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">folder</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/plan-sla">Plan Sla</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">priority_high</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/prioridad">Prioridad</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">engineering</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/rol">Rol</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">design_services</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/servicios">Servicios</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">business</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/tienda">Empresas</a>
+          </button>
+        </li>
+        <li>
+          <button mat-button color="primary">
+            <mat-icon aria-hidden="false">person</mat-icon>
+            <a routerLink="/dashboard/mantenimiento/usuarios">Usuarios</a>
+          </button>
+        </li>
+      </ul>
+
+      
+      
+
+      <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Mantenimiento
+          </mat-panel-title>
+          
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+            <button mat-button color="primary">
+              
+              <a routerLink="/dashboard/mantenimiento/area">Area</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/estado-ticket">Estado Ticket</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/incidencia">Incidencia</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/plan-sla">Plan Sla</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/prioridad">Prioridad</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/rol">Rol</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/servicios">Servicios</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/tienda">Empresas</a>
+            </button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button color="primary">
+              <a routerLink="/dashboard/mantenimiento/usuarios">Usuarios</a>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel> -->
+
+    </mat-accordion>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    
+      
+  </mat-sidenav-content>
+</mat-sidenav-container>
