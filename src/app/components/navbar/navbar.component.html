@@ -2,7 +2,7 @@
     <button (click)="opened= !opened" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span> Sistema de Incidencia</span>
+    <span><img style="height: 60px; width: 90px;" src="../../../assets/logo.png" >  Sistema de Incidencia</span>
     <span class="example-spacer"></span>
     <a class="user" mat-icon-button *ngIf="isLoggedIn && user">{{login.getUser().nombres | titlecase }} </a>
     <a class="logout" routerLink="/login" (click)="logout()" mat-icon-button *ngIf="isLoggedIn">
